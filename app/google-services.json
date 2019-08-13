@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "247043810070",
+    "firebase_url": "https://location-sharing-1c470.firebaseio.com",
+    "project_id": "location-sharing-1c470",
+    "storage_bucket": "location-sharing-1c470.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:247043810070:android:7259d1cd104757c3",
+        "android_client_info": {
+          "package_name": "com.example.locationsharing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "247043810070-b1q285hqt3g384le783brhscp8200ae3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.locationsharing",
+            "certificate_hash": "2564ffbd3789282fdbb481e930dbebb6c35d9547"
+          }
+        },
+        {
+          "client_id": "247043810070-ivrngu1ttf0f0j00posgkns3cqeaoirk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_ZOnwozrt5KwKKpjtPZm_-EgEoF_1_CM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "247043810070-ivrngu1ttf0f0j00posgkns3cqeaoirk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
