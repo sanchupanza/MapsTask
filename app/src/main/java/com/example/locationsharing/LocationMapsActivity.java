@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -38,6 +37,7 @@ public class LocationMapsActivity extends FragmentActivity implements OnMapReady
 
     private TextView l1,l2,l3;
     public int locationNo=0;
+    public boolean firstLocation=true;
     public Double lat1,lon1,lat2,lon2;
 
     @Override
@@ -59,10 +59,6 @@ public class LocationMapsActivity extends FragmentActivity implements OnMapReady
     }
 
 
-
-
-
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -77,71 +73,61 @@ public class LocationMapsActivity extends FragmentActivity implements OnMapReady
             public void onMapClick(LatLng point)
             {
 
-                if(locationNo==0)
+                if(firstLocation)
                 {
+
                     mMap.clear();
+                    l2.setText("");
+                    l3.setText("");
                     mMap.addMarker(new MarkerOptions().position(point).title("location number 1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                  //  Toast.makeText(LocationMapsActivity.this, ""+point.latitude+point.latitude, Toast.LENGTH_SHORT).show();
-                    l1.setText("("+String.valueOf(point.latitude)+")  ("+String.valueOf(point.latitude)+")");
+                    l1.setText("("+String.valueOf(point.latitude)+")  ("+String.valueOf(point.longitude)+")");
                     lat1=point.latitude;
                     lon1=point.longitude;
                     locationNo=1;
+                    firstLocation=false;
 
-                }else if(locationNo==1)
+                }else if(!firstLocation)
                 {
                     mMap.addMarker(new MarkerOptions().position(point).title("location number 2").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                 //   Toast.makeText(LocationMapsActivity.this, ""+point.latitude+point.latitude, Toast.LENGTH_SHORT).show();
-                    l2.setText("("+String.valueOf(point.latitude)+")  ("+String.valueOf(point.latitude)+")");
+                    l2.setText("("+String.valueOf(point.latitude)+")  ("+String.valueOf(point.longitude)+")");
                     lat2=point.latitude;
                     lon2=point.longitude;
-                    locationNo=0;
+
+                    firstLocation=true;
 
                     findMiddleLocation(lat1,lon1,lat2,lon2);
                 }
             }
         });
-   //     mMap.setMyLocationEnabled(true);
+        mMap.setMyLocationEnabled(true);
 
 
-
-       /* // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
     }
 
     private void findMiddleLocation(Double lat1, Double lon1, Double lat2, Double lon2)
     {
 
-     /*   lat1 = Math.toRadians(lat1);
-        lon1 = Math.toRadians(lon1);
+
+
+
+        double dLon = Math.toRadians(lon2 - lon1);
+
+        lat1 = Math.toRadians(lat1);
         lat2 = Math.toRadians(lat2);
-        lon1 = Math.toRadians(lon2);
+        lon1 = Math.toRadians(lon1);
 
-        double dlon = lon2 - lon1;
-        double dlat = lat2 - lat1;
-
-        double a = Math.pow(Math.sin(dlat / 2), 2)
-                + Math.cos(lat1) * Math.cos(lat2)
-                * Math.pow(Math.sin(dlon / 2),2);
-
-        double c = 2 * Math.asin(Math.sqrt(a));
-
-        double r = 6371;*/
-
-        double dLon = Math.toRadians(lon2-lon1);
         double Bx = Math.cos(lat2) * Math.cos(dLon);
         double By = Math.cos(lat2) * Math.sin(dLon);
-        double lat3 = Math.atan2(Math.sin(lat1)+Math.sin(lat2),Math.sqrt( (Math.cos(lat1)+Bx)*(Math.cos(lat1)+Bx) + By*By) );
+        double lat3 = Math.atan2(Math.sin(lat1) + Math.sin(lat2), Math.sqrt((Math.cos(lat1) + Bx) * (Math.cos(lat1) + Bx) + By * By));
         double lon3 = lon1 + Math.atan2(By, Math.cos(lat1) + Bx);
 
-        Toast.makeText(this, ""+lat3+"  "+lon3, Toast.LENGTH_SHORT).show();
-        l3.setText("("+String.valueOf(lat3)+")  ("+String.valueOf(lon3)+")");
+
+        l3.setText("("+String.valueOf(Math.toDegrees(lat3))+")  ("+String.valueOf(Math.toDegrees(lon3))+")");
 
 
 
 
-        LatLng MiddlePoint = new LatLng(lat3, lon3);
+        LatLng MiddlePoint = new LatLng(Math.toDegrees(lat3),Math.toDegrees(lon3));
         mMap.addMarker(new MarkerOptions().position(MiddlePoint).title("Middle Point").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(MiddlePoint));
     }

@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/location2"
             android:textColor="@android:color/background_light"
-            android:text="Latitude and Longitude 3"
+            android:text="Middle Point"
             android:textAlignment="center"
             />
 
