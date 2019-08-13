@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import android.view.WindowManager;
 import android.widget.TextView;
 
 
@@ -31,10 +32,6 @@ public class LocationMapsActivity extends FragmentActivity implements OnMapReady
 
     private GoogleMap mMap;
     GoogleApiClient googleApiClient;
-
-
-
-
     private TextView l1,l2,l3;
     public int locationNo=0;
     public boolean firstLocation=true;
@@ -44,6 +41,9 @@ public class LocationMapsActivity extends FragmentActivity implements OnMapReady
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers_maps);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
